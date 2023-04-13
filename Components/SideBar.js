@@ -26,7 +26,12 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
-
+import Link from "next/link";
+import { AiOutlineDashboard, AiFillCar,AiFillSetting } from "react-icons/ai";
+import {BiMoney} from "react-icons/bi"
+import { BsFillPersonVcardFill, BsFillEnvelopePaperFill } from "react-icons/bs";
+ import {FiUsers} from "react-icons/fi"
+ import {RiStarSLine} from "react-icons/ri"
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -256,236 +261,77 @@ const SideBar = () => {
 			<div
 				style={{
 					display: "flex",
-					
 				}}
 			>
-				<Sidebar breakPoint="md" backgroundColor="#2F58CD" style={{color:"#FFF"}} width="200px">
+				<Sidebar
+					breakPoint="md"
+					backgroundColor="#2F58CD"
+					style={{ color: "#FFF" }}
+					width="200px"
+				>
 					<Menu>
-						<MenuItem> Dashboard</MenuItem>
-						<MenuItem>Riders</MenuItem>
-						<MenuItem>Users</MenuItem>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<AiOutlineDashboard size={30} style={{ marginRight: "10px" }} />
+								Dashboard
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+
+						<Link href="/Dashboard">
+							<MenuItem>
+								<BsFillPersonVcardFill
+									size={30}
+									style={{ marginRight: "10px" }}
+								/>
+								Riders
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<FiUsers size={30} style={{ marginRight: "10px" }} />
+								Users
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<AiFillCar size={30} style={{ marginRight: "10px" }} />
+								Vehicle Type
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<BiMoney size={30} style={{ marginRight: "10px" }} />
+								Earning Report
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<BsFillEnvelopePaperFill size={30} style={{ marginRight: "10px" }} />
+								 Doucments
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<RiStarSLine size={30} style={{ marginRight: "10px" }} />
+								Rating & Review
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
+						<Link href="/Dashboard">
+							<MenuItem>
+								<AiFillSetting size={30} style={{ marginRight: "10px" }} />
+								Site Setting
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider"/>
 					</Menu>
 				</Sidebar>
-
-				<Box sx={{ flexGrow: 1 ,overflow:"hidden"}}>
-					<AppBar position="static">
-						<Toolbar>
-							<IconButton
-								size="large"
-								edge="start"
-								color="inherit"
-								aria-label="open drawer"
-								sx={{ mr: 2 }}
-								onClick={() => collapseSidebar()}
-								className="rm"
-							>
-								<MenuIcon />
-							</IconButton>
-							<IconButton
-								size="large"
-								edge="start"
-								color="inherit"
-								aria-label="open drawer"
-								sx={{ mr: 2 }}
-								onClick={() => toggleSidebar()}
-								className="rm2"
-							>
-								<MenuIcon />
-							</IconButton>
-							<Typography
-								variant="h6"
-								noWrap
-								component="div"
-								sx={{ display: { xs: "none", sm: "block" } }}
-							>
-								RIdeShare Admin Panel
-							</Typography>
-							<Search>
-								<SearchIconWrapper>
-									<SearchIcon />
-								</SearchIconWrapper>
-								<StyledInputBase
-									placeholder="Search…"
-									inputProps={{ "aria-label": "search" }}
-								/>
-							</Search>
-							<Box sx={{ flexGrow: 1 }} />
-							<Box sx={{ display: { xs: "none", md: "flex" } }}>
-								<IconButton
-									size="large"
-									aria-label="show 4 new mails"
-									color="inherit"
-								>
-									<Badge badgeContent={4} color="error">
-										<MailIcon />
-									</Badge>
-								</IconButton>
-								<IconButton
-									size="large"
-									aria-label="show 17 new notifications"
-									color="inherit"
-								>
-									<Badge badgeContent={17} color="error">
-										<NotificationsIcon />
-									</Badge>
-								</IconButton>
-								<IconButton
-									size="large"
-									edge="end"
-									aria-label="account of current user"
-									aria-controls={menuId}
-									aria-haspopup="true"
-									onClick={handleProfileMenuOpen}
-									color="inherit"
-								>
-									<AccountCircle />
-								</IconButton>
-							</Box>
-							<Box sx={{ display: { xs: "flex", md: "none" } }}>
-								<IconButton
-									size="large"
-									aria-label="show more"
-									aria-controls={mobileMenuId}
-									aria-haspopup="true"
-									onClick={handleMobileMenuOpen}
-									color="inherit"
-								>
-									<MoreIcon />
-								</IconButton>
-							</Box>
-						</Toolbar>
-					</AppBar>
-					{renderMobileMenu}
-					{renderMenu}
-					<div className=" flex">
-						<div className="container-fluid border border-dashed ">
-							<p className="text-[18px] font-bold text-blue-600 mb-3 mt-2">
-								Site Statistics
-							</p>
-							<div className="row">
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-cyan-500 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<AccountCircleIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Total Rides</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-red-600 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<AirlineSeatReclineNormalIcon
-											sx={{ fontSize: 40, margin: "auto" }}
-										/>
-										<div class="card-body">
-											<h5 class="card-title">Total Drivers</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-orange-400 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<LocalTaxiIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Vechicel Type</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-green-600 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<LocalAtmIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Revenue</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="container-fluid border border-dashed ">
-							<p className="text-[18px] font-bold text-blue-600 mb-3 mt-2">
-								Ride Statistics
-							</p>
-							<div className="row">
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-cyan-500 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<DirectionsCarIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Total Number Rides</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-red-600 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<CancelIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Cancel Ride</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-orange-400 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<TaskAltIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Completed Ride</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-								<div className="col-md-5">
-									<div
-										class="card mb-5 bg-green-600 text-white text-center"
-										style={{ width: "11rem;" }}
-									>
-										<TimelapseIcon sx={{ fontSize: 40, margin: "auto" }} />
-										<div class="card-body">
-											<h5 class="card-title">Running Ride</h5>
-											<p className="text-[18px]">0</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-md-6 container-fluid border border-dashed">
-							<p className="text-[18px] font-bold text-blue-600 mb-3 mt-2">
-								Site Statistics
-							</p>
-							<canvas id="myChart" ></canvas>
-						</div>
-						<div className=" col-md-6 container-fluid border border-dashed">
-							<p className="text-[18px] font-bold text-blue-600 mb-3 mt-2">
-								Ride Statistics
-							</p>
-							<canvas id="myChart2" ></canvas>
-						</div>
-					</div>
-				</Box>
 			</div>
 		</>
 	);

@@ -1,9 +1,7 @@
 import '@/styles/globals.css'
 import Head from 'next/head'
 import Script from 'next/script';
-import "../styles/style.css"
-import "../styles/custom.css"
-import '../styles/components.css'
+
 import { ProSidebarProvider } from "react-pro-sidebar";
 
 

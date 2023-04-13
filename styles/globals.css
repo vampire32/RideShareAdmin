@@ -11,5 +11,8 @@
     
 }
 .rm2{
-    display: none;
+    display: none!important;
+}
+.css-12w9als {
+    display: contents!important;
 }
