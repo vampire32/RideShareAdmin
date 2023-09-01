@@ -1,3 +1,4 @@
+import SideBar from '@/Components/SideBar';
 import '@/styles/globals.css'
 import Head from 'next/head'
 import Script from 'next/script';
@@ -25,7 +26,10 @@ export default function App({ Component, pageProps }) {
 				crossorigin="anonymous"
 			></Script>
 			<ProSidebarProvider>
-				<Component {...pageProps} />
+				
+					
+					<Component {...pageProps} />
+				
 			</ProSidebarProvider>
 		</>
 	);

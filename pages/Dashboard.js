@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Chart } from "chart.js";
+
 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -27,47 +28,13 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
 import SideBar from "@/Components/SideBar";
+import firebase from "../firebase";
 const drawerWidth = 240;
-const Search = styled("div")(({ theme }) => ({
-	position: "relative",
-	borderRadius: theme.shape.borderRadius,
-	backgroundColor: alpha(theme.palette.common.white, 0.15),
-	"&:hover": {
-		backgroundColor: alpha(theme.palette.common.white, 0.25),
-	},
-	marginRight: theme.spacing(2),
-	marginLeft: 0,
-	width: "100%",
-	[theme.breakpoints.up("sm")]: {
-		marginLeft: theme.spacing(3),
-		width: "auto",
-	},
-}));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-	padding: theme.spacing(0, 2),
-	height: "100%",
-	position: "absolute",
-	pointerEvents: "none",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: "inherit",
-	"& .MuiInputBase-input": {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create("width"),
-		width: "100%",
-		[theme.breakpoints.up("md")]: {
-			width: "20ch",
-		},
-	},
-}));
 const Dashboard = (props) => {
+	const [TotalUsers, setTotalUsers] = useState("")
+	const [TotalDrivers, setTotalDrivers] = useState("")
+	const [TotalPost, setTotalPost] = useState("")
 	useEffect(() => {
 		var ctx = document.getElementById("myChart").getContext("2d");
 		var myChart = new Chart(ctx, {
@@ -150,6 +117,28 @@ const Dashboard = (props) => {
 			},
 		});
 	}, []);
+	const list = [];
+	useEffect(() => {
+	    const databaseRef = firebase.database().ref("users/");
+		databaseRef.on("value", (snapshot) => {
+			const fetchedData = snapshot.numChildren();
+			
+			setTotalUsers(fetchedData)
+		});
+
+		const DriversDatbaase=firebase.database().ref("Drivers");
+		DriversDatbaase.on("value",(snapshot)=>{
+			const Drivers=snapshot.numChildren()
+			setTotalDrivers(Drivers)
+		});
+		
+		return () => {
+			databaseRef.off();
+			DriversDatbaase.off();
+		};
+	   
+	}, [])
+	
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -249,8 +238,9 @@ const Dashboard = (props) => {
 	const { collapseSidebar, toggleSidebar } = useProSidebar();
 
 	return (
-		<div className="flex">
-			<SideBar />
+		<div className="flex" >
+			<SideBar/>
+			
 			<Box sx={{ flexGrow: 1, overflow: "hidden" }}>
 				<AppBar position="static">
 					<Toolbar>
@@ -284,26 +274,10 @@ const Dashboard = (props) => {
 						>
 							RIdeShare Admin Panel
 						</Typography>
-						<Search>
-							<SearchIconWrapper>
-								<SearchIcon />
-							</SearchIconWrapper>
-							<StyledInputBase
-								placeholder="Search…"
-								inputProps={{ "aria-label": "search" }}
-							/>
-						</Search>
+						
 						<Box sx={{ flexGrow: 1 }} />
 						<Box sx={{ display: { xs: "none", md: "flex" } }}>
-							<IconButton
-								size="large"
-								aria-label="show 4 new mails"
-								color="inherit"
-							>
-								<Badge badgeContent={4} color="error">
-									<MailIcon />
-								</Badge>
-							</IconButton>
+							
 							<IconButton
 								size="large"
 								aria-label="show 17 new notifications"
@@ -354,8 +328,8 @@ const Dashboard = (props) => {
 								>
 									<AccountCircleIcon sx={{ fontSize: 40, margin: "auto" }} />
 									<div class="card-body">
-										<h5 class="card-title">Total Rides</h5>
-										<p className="text-[18px]">0</p>
+										<h5 class="card-title">Total Users</h5>
+										<p className="text-[18px]">{TotalUsers}</p>
 									</div>
 								</div>
 							</div>
@@ -369,23 +343,23 @@ const Dashboard = (props) => {
 									/>
 									<div class="card-body">
 										<h5 class="card-title">Total Drivers</h5>
-										<p className="text-[18px]">0</p>
+										<p className="text-[18px]">{TotalDrivers}</p>
 									</div>
 								</div>
 							</div>
-							<div className="col-md-5">
+							{/* <div className="col-md-5">
 								<div
 									class="card mb-5 bg-orange-400 text-white text-center"
 									style={{ width: "11rem;" }}
 								>
 									<LocalTaxiIcon sx={{ fontSize: 40, margin: "auto" }} />
 									<div class="card-body">
-										<h5 class="card-title">Vechicel Type</h5>
-										<p className="text-[18px]">0</p>
+										<h5 class="card-title">Total Drivers Post</h5>
+										<p className="text-[18px]">{TotalPost}</p>
 									</div>
 								</div>
-							</div>
-							<div className="col-md-5">
+							</div> */}
+							{/* <div className="col-md-5">
 								<div
 									class="card mb-5 bg-green-600 text-white text-center"
 									style={{ width: "11rem;" }}
@@ -396,7 +370,7 @@ const Dashboard = (props) => {
 										<p className="text-[18px]">0</p>
 									</div>
 								</div>
-							</div>
+							</div> */}
 						</div>
 					</div>
 					<div className="container-fluid border border-dashed ">

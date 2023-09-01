@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from 'next/link';
+import firebase from "../firebase";
 
 
 
@@ -38,14 +39,21 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Home() {
-    const handleSubmit = (event) => {
-			event.preventDefault();
-			const data = new FormData(event.currentTarget);
-			console.log({
-				email: data.get("email"),
-				password: data.get("password"),
-			});
+	 const [email, setEmail] = useState("");
+		const [password, setPassword] = useState("");
+		const [error, setError] = useState(null);
+		const [DashLink, setDashLink] = useState("")
+		const handleLogin = async () => {
+			try {
+				await firebase.auth().signInWithEmailAndPassword(email, password);
+				setDashLink("/Dashboard");
+				
+			} catch (error) {
+				setError(error.message);
+				alert(error)
+			}
 		};
+    
   return (
 		<>
 			<Head>
@@ -92,6 +100,7 @@ export default function Home() {
 								type="text"
 								autoFocus
 								sx={{ backgroundColor: "white", borderRadius: "10px" }}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 							<TextField
 								margin="normal"
@@ -103,12 +112,26 @@ export default function Home() {
 								id="password"
 								autoComplete="current-password"
 								sx={{ backgroundColor: "white", borderRadius: "10px" }}
+								onChange={(e) => setPassword(e.target.value)}
 							/>
-							<Link href="/Dashboard" style={{backgroundColor:"white",paddingBottom:15,borderRadius:3}}>
+							<Link
+								href={DashLink}
+								style={{
+									backgroundColor: "white",
+									paddingBottom: 15,
+									borderRadius: 3,
+								}}
+							>
 								<Button
 									fullWidth
 									variant="contained"
-									sx={{ mt: 3, mb: 2, backgroundColor: "white", color: "black" }}
+									sx={{
+										mt: 3,
+										mb: 2,
+										backgroundColor: "white",
+										color: "black",
+									}}
+									onClick={handleLogin}
 								>
 									Sign In
 								</Button>
