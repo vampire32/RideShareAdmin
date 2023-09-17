@@ -17,7 +17,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import Link from "next/link";
 import { AiOutlineDashboard, AiFillCar,AiFillSetting } from "react-icons/ai";
-import {BiMoney} from "react-icons/bi"
+import { BiMoney } from "react-icons/bi";
+import {TbReportAnalytics} from "react-icons/tb"
 import { BsFillPersonVcardFill, BsFillEnvelopePaperFill } from "react-icons/bs";
  import {FiUsers} from "react-icons/fi"
  import {RiStarSLine} from "react-icons/ri"
@@ -184,7 +185,7 @@ const SideBar = () => {
 								Dashboard
 							</MenuItem>
 						</Link>
-						<hr class="dropdown-divider"/>
+						<hr class="dropdown-divider" />
 
 						<Link href="/Riders">
 							<MenuItem>
@@ -195,31 +196,47 @@ const SideBar = () => {
 								Riders
 							</MenuItem>
 						</Link>
-						<hr class="dropdown-divider"/>
+						<hr class="dropdown-divider" />
 						<Link href="/Users">
 							<MenuItem>
 								<FiUsers size={30} style={{ marginRight: "10px" }} />
 								Users
 							</MenuItem>
 						</Link>
-						
-					
-						<hr class="dropdown-divider"/>
+
+						<hr class="dropdown-divider" />
 						<Link href="/DriverDoucments">
 							<MenuItem>
-								<BsFillEnvelopePaperFill size={30} style={{ marginRight: "10px" }} />
-								 Doucments
+								<BsFillEnvelopePaperFill
+									size={30}
+									style={{ marginRight: "10px" }}
+								/>
+								Doucments
 							</MenuItem>
 						</Link>
-						<hr class="dropdown-divider"/>
+						<hr class="dropdown-divider" />
+						<Link href="/RideLogs">
+							<MenuItem>
+								<TbReportAnalytics size={50} style={{ marginRight: "10px" }} />
+								RidePayment Logs
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider" />
+						<Link href="/WalletLogs">
+							<MenuItem>
+								<TbReportAnalytics size={30} style={{ marginRight: "10px" }} />
+								Wallet Logs
+							</MenuItem>
+						</Link>
+						<hr class="dropdown-divider" />
 						<Link href="/Dashboard">
 							<MenuItem>
 								<RiStarSLine size={30} style={{ marginRight: "10px" }} />
 								Rating & Review
 							</MenuItem>
 						</Link>
-					
-						<hr class="dropdown-divider"/>
+
+						<hr class="dropdown-divider" />
 					</Menu>
 				</Sidebar>
 			</div>
